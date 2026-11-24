@@ -1,0 +1,50 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#154bde"><meta name="description" content="가입조건을 입력하고 ONE더라이프 연금 예상액을 확인하세요. 2024.12.17 원본 계산기 기준.">
+  <link rel="manifest" href="./manifest.webmanifest"><link rel="icon" href="./icon.svg" type="image/svg+xml"><link rel="apple-touch-icon" href="./icon-192.png">
+  <link rel="stylesheet" href="./style.css"><title>ONE더라이프 · 연금 계산기</title>
+</head>
+<body>
+  <header class="topbar"><a class="brand" href="./" aria-label="ONE더라이프 계산기 홈"><span class="brand-icon">O<span>+</span></span><span>ONE<span class="brand-light">더라이프</span></span></a><span class="header-tag">연금 시뮬레이터</span></header>
+  <main>
+    <section class="intro"><div><p class="eyebrow">MY RETIREMENT PLAN</p><h1>오늘의 계획을,<br class="mobile-break"> 내일의 연금으로.</h1><p class="subtitle">나에게 맞는 조건으로 미래의 연금을 확인해 보세요.</p></div><div class="source-chip"><span class="status-dot"></span>2024.12.17 계산기 기준</div></section>
+    <div class="workspace">
+      <section class="panel input-panel" aria-labelledby="input-title">
+        <div class="panel-heading"><div><p class="step">STEP 01</p><h2 id="input-title">가입조건 설정</h2></div><button class="text-button" id="reset" type="button">초기화 ↺</button></div>
+        <form id="calculator" novalidate>
+          <fieldset class="field"><legend>연금형태</legend><div class="segments type-segments"><label><input type="radio" name="type" value="1" checked><span>100세연금형</span></label><label><input type="radio" name="type" value="2"><span>종신연금형</span></label></div><p class="error" id="error-type"></p></fieldset>
+          <div class="field-grid"><div class="field"><label for="age">가입나이</label><div class="input-wrap"><input id="age" name="age" type="number" inputmode="numeric" min="0" max="70" step="1" value="40" aria-describedby="error-age"><span>세</span></div><p class="hint">0~70세</p><p class="error" id="error-age"></p></div><fieldset class="field"><legend>성별</legend><div class="segments sex-segments"><label><input type="radio" name="sex" value="1" checked><span>남성</span></label><label><input type="radio" name="sex" value="2"><span>여성</span></label></div><p class="error" id="error-sex"></p></fieldset></div>
+          <div class="field"><label for="premium">월보험료</label><div class="input-wrap premium-wrap"><input id="premium" name="premium" type="text" inputmode="numeric" value="500,000" autocomplete="off" aria-describedby="premium-hint error-premium"><span>원</span></div><p class="hint" id="premium-hint">매월 50만 원 · 30만 원 이상</p><div class="quick-values" aria-label="월보험료 빠른 선택"><button type="button" data-premium="300000">30만</button><button type="button" data-premium="500000" class="active">50만</button><button type="button" data-premium="1000000">100만</button><button type="button" data-premium="2000000">200만</button></div><p class="error" id="error-premium"></p></div>
+          <div class="field-grid"><div class="field"><label for="payYears">납입기간</label><div class="select-wrap"><select id="payYears" name="payYears" aria-describedby="error-payYears"><option value="5">5년</option><option value="7">7년</option><option value="10" selected>10년</option><option value="12">12년</option><option value="15">15년</option><option value="20">20년</option><option value="25">25년</option><option value="30">30년</option></select></div><p class="error" id="error-payYears"></p></div><div class="field"><label for="startAge">연금개시나이</label><div class="input-wrap"><input id="startAge" name="startAge" type="number" inputmode="numeric" min="50" max="80" value="65" aria-describedby="error-startAge"><span>세</span></div><p class="hint">50~80세</p><p class="error" id="error-startAge"></p></div></div>
+          <div class="timeline"><div class="timeline-line"><i></i><i></i><i></i></div><div class="timeline-labels"><span>가입 <b id="timeline-age">40세</b></span><span>납입완료 <b id="timeline-end">50세</b></span><span>연금개시 <b id="timeline-start">65세</b></span></div></div>
+          <button class="primary-button" type="submit">내 연금 계산하기 <span>↗</span></button>
+          <p class="form-note" id="form-note">조건을 설정한 뒤 계산하기를 눌러 주세요.</p>
+        </form>
+      </section>
+      <section class="result-column" aria-labelledby="result-title">
+        <div id="stale-note" class="stale-note" hidden>조건이 변경되었습니다. 계산하기를 눌러 결과를 갱신해 주세요.</div>
+        <div id="result-content">
+          <section class="hero-result monthly-hero"><div class="result-top"><span class="result-tag">매달 들어오는 내 연금</span><span id="result-type">100세연금형</span></div><p id="result-title">65세부터 매월 받는 예상 연금</p><div class="monthly-amount"><span class="monthly-prefix">매월</span><strong id="monthly">606,937</strong><span class="monthly-unit">원</span></div><div class="monthly-caption">원본 계산기의 월 지급액 환산 기준 <button type="button" class="info-button" id="monthly-info" aria-label="월 지급액 환산 안내" aria-expanded="false">i</button></div><p id="monthly-explanation" class="monthly-explanation" hidden>원본의 월 지급액 환산식을 적용했습니다. 연금연액을 단순히 12로 나눈 금액과 다릅니다. 실제 지급 방식은 계약 내용을 확인해 주세요.</p><div class="hero-divider"></div><div class="annual-secondary"><span>연 수령액</span><b><span id="annual">7,274,914</span>원</b></div></section>
+          <section class="panel breakdown-panel return-highlight"><div class="return-heading"><p>100세까지 수령한다면</p><h2>내가 낸 돈의 <strong id="ratio">4.24배</strong></h2><span>총 수령액 ÷ 총 납입보험료</span></div><div class="comparison-bars"><div><span>내가 낸 돈</span><div class="bar-track"><div class="bar paid-bar" id="paid-bar" style="width:23.6%"></div></div><b id="bar-paid">6,000만 원</b></div><div><span>받는 돈</span><div class="bar-track"><div class="bar total-bar"></div></div><b id="bar-total">2억 5,462만 원</b></div></div><div class="difference"><span>총 납입금보다 더 받는 금액</span><strong id="extra">+194,621,981원</strong></div><p class="fine-print">100세 전까지 생존하여 매년 같은 연금연액을 수령한다고 가정한 단순 합계입니다. 수익률·현재가치·사망확률을 반영한 수익 비교가 아닙니다.</p></section>
+          <div class="summary-grid"><section class="metric-card"><span>내가 낸 돈 · 총 납입보험료</span><strong id="paid">60,000,000<span>원</span></strong><p id="paid-description">월 50만 원 × 10년</p></section><section class="metric-card accent-card"><span>받는 돈 · 100세까지 수령 가정</span><strong id="total">254,621,981<span>원</span></strong><p>연금연액 × (100 − 개시나이)</p></section></div>
+          <p class="guarantee-secondary">최저연금기준액 <b id="guarantee">138,175,000원</b></p>
+          <div class="result-actions"><button type="button" id="save-result">＋ 비교함에 저장</button><button type="button" id="copy-result">결과 복사 ↗</button></div>
+          <section class="consultation-card" aria-labelledby="consultation-title">
+            <div class="consultation-heading"><span class="chat-icon" aria-hidden="true"><svg viewBox="0 0 32 32" fill="currentColor"><path d="M16 5C8.8 5 3 9.3 3 14.6c0 3.4 2.4 6.5 6 8.2l-1.4 5 5.7-3.7c.9.1 1.8.2 2.7.2 7.2 0 13-4.3 13-9.7S23.2 5 16 5Z"/></svg></span><div><p class="consultation-eyebrow">KAKAO CHANNEL</p><h2 id="consultation-title">내 연금 계획, 함께 확인해 보세요</h2></div></div>
+            <p class="consultation-description">가입조건과 궁금한 점을<br class="mobile-break"> 카카오톡으로 편하게 상담하세요.</p>
+            <a id="kakao-consultation" class="kakao-button" href="https://pf.kakao.com/_xezXWX/chat" target="_blank" rel="noopener noreferrer" aria-label="카카오톡으로 상담 신청 (새 창)">카카오톡으로 상담 신청 <span aria-hidden="true">↗</span></a>
+            <p class="consultation-note">구경순의 금융나침반 카카오톡 채널로 연결됩니다.</p>
+          </section>
+        </div>
+        <section class="panel saved-panel" id="saved-panel" hidden><div class="section-heading"><h2>가입조건 비교</h2><button type="button" class="text-button" id="clear-saved">모두 삭제</button></div><p class="hint">최대 3개 · 이 기기에만 저장됩니다.</p><div id="saved-list"></div></section>
+      </section>
+    </div>
+    <section class="method-section"><details><summary>계산 기준과 이용 안내 <span>＋</span></summary><div class="method-content"><p><b>2024.12.17 버전의 ‘연금액 계산’ 화면을 옮긴 참고용 계산기입니다.</b> 보험회사의 공식 앱이 아니며, 현재 판매 조건이나 요율을 확인하는 서비스가 아닙니다.</p><ul><li>원본 기본 설정과 동일하게 공시이율 입력값 0%, 추가납입·중도인출·행복이벤트자금 0을 적용합니다. 숨김 시트의 해약환급금·펀드수익률·LTC 계산은 제공하지 않습니다.</li><li>최저연금기준액은 누적 납입보험료에 매월 연단리 이율의 1/12을 더합니다. 100세연금형은 경과 20년 이내 7% / 이후 5%, 종신연금형은 6% / 4%입니다. 이 비율은 보험료의 투자수익률이 아닙니다.</li><li>연금연액 = 연금기준금액 × 성별·개시나이별 기초지급률 × (1 + 장기유지가산률). 원본처럼 나이 구간별 요율을 적용하며, 75~80세는 같은 구간입니다.</li><li>‘100세까지 총연금액’은 원본 화면과 같이 연금연액 × (100 − 개시나이)입니다. 종신연금형의 지급이 100세에 끝난다는 뜻은 아닙니다.</li><li>표시 금액은 원 단위 반올림이며 계산 중에는 반올림하지 않습니다. 최소 월보험료 30만 원과 납입완료 후 개시 조건을 확인합니다. 실제 가입 가능 여부는 별도 확인이 필요합니다.</li></ul><p class="verification-note">검증 범위: 원본 저장 사례(40세 남성 / 월 50만 원 / 10년납 / 65세 개시)의 월별 기준액 300개와 연금 결과를 대조했습니다. 변경 조건의 Excel 재계산 대조는 아직 완료되지 않았습니다.</p><p>원본 안내: 당사 내부 참고용 자료로 고객 및 GA에 제공할 수 없으며, 환급금·보험금의 근거가 될 수 없습니다. 중도 해지 시 해약환급금에 손실이 발생할 수 있으므로 상품설명서를 확인해 주세요.</p></div></details></section>
+    <footer><span>ONE더라이프 연금 계산기</span><span>2024.12.17 원본 기반 · 참고용</span></footer>
+  </main>
+  <div class="toast" id="toast" role="status" aria-live="polite"></div>
+  <script type="module" src="./app.js"></script>
+</body>
+</html>
